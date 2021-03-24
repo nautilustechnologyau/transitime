@@ -17,7 +17,7 @@
 		<javax.activation.version>1.2.0</javax.activation.version>
 		<jaxb.api.version>2.3.0</jaxb.api.version>
 		<lombok.version>1.18.6</lombok.version>
-		<hibernate.version>5.2.18.Final</hibernate.version>
+		<hibernate.version>5.4..Final</hibernate.version>
 		<hibernate.validator.version>6.0.21.Final</hibernate.validator.version>
 		<hibernate.validator.version>6.0.21.Final</hibernate.validator.version>
 
@@ -113,22 +113,12 @@
 		</dependency>
 
 		<!-- hibernate -->
+	
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>4.3.9.Final</version>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-entitymanager</artifactId>
+    		<version>5.4.10.Final</version>
 		</dependency>
-		<dependency>
-			<groupId>org.hibernate.common</groupId>
-			<artifactId>hibernate-commons-annotations</artifactId>
-			<version>4.0.5.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-c3p0</artifactId>
-			<version>4.3.9.Final</version>
-		</dependency>
-
 
 		<!-- hibernate-core loads in really old version of xml-apis so load in 
 			newer version explicitly. Otherwise get problems with the Node class. -->
@@ -274,11 +264,14 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- Used for reflection to find classes in package -->
+		
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
 		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>18.0</version>
+	    	<groupId>com.google.guava</groupId>
+	    	<artifactId>guava</artifactId>
+	    	<version>30.1.1-jre</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
