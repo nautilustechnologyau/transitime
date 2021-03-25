@@ -114,11 +114,13 @@
 
 		<!-- hibernate -->
 	
+	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
-    		<groupId>org.hibernate</groupId>
-    		<artifactId>hibernate-entitymanager</artifactId>
-    		<version>5.4.10.Final</version>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-core</artifactId>
+		    <version>5.4.30.Final</version>
 		</dependency>
+
 
 		<!-- hibernate-core loads in really old version of xml-apis so load in 
 			newer version explicitly. Otherwise get problems with the Node class. -->
