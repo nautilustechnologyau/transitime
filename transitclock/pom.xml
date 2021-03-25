@@ -124,11 +124,11 @@
 
 		<!-- hibernate-core loads in really old version of xml-apis so load in 
 			newer version explicitly. Otherwise get problems with the Node class. -->
-		<dependency>
+		<!--<dependency>
 			<groupId>xml-apis</groupId>
 			<artifactId>xml-apis</artifactId>
 			<version>1.4.01</version>
-		</dependency>
+		</dependency>-->
 
 		<!-- For logging -->
 		<dependency>
