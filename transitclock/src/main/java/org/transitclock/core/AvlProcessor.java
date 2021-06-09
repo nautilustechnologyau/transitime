@@ -1363,6 +1363,11 @@ public class AvlProcessor {
 		String vehicleId = avlReport.getVehicleId();
 		VehicleState vehicleState = VehicleStateManager.getInstance()
 				.getVehicleState(vehicleId);
+		
+		if(avlReport.getAssignmentType()==AssignmentType.ROUTE_ID)
+		{
+			logger.debug("Route assignment set to ", avlReport.getAssignmentId());
+		}
 
 		// Since modifying the VehicleState should synchronize in case another
 		// thread simultaneously processes data for the same vehicle. This
@@ -1370,7 +1375,7 @@ public class AvlProcessor {
 		synchronized (vehicleState) {
 			// Keep track of last AvlReport even if vehicle not predictable.
 			vehicleState.setAvlReport(avlReport);
-
+		
 			// If part of consist and shouldn't be generating predictions
 			// and such and shouldn't grab assignment the simply return
 			// not that the last AVL report has been set for the vehicle.

@@ -14,7 +14,7 @@ import java.net.Socket;
  */
 public class Server {
 	public static void main(String args[]) {
-		int portNumber = 4444; //Integer.parseInt(args[0]);
+		int portNumber = 6062; //Integer.parseInt(args[0]);
 
 		System.out.println("Server running. Listening to port " + portNumber);
 		try {

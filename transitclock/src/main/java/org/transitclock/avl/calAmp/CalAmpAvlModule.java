@@ -11,12 +11,12 @@ import org.transitclock.config.IntegerConfigValue;
 
 public class CalAmpAvlModule extends AvlModule {
 
-	private static IntegerConfigValue calAmpFeedPort = new IntegerConfigValue(
-			"transitclock.avl.calAmpFeedPort", 20500,
+	private static IntegerConfigValue UDPFeedPort = new IntegerConfigValue(
+			"transitclock.avl.UDPFeedPort", 6062,
 			"The port number for the UDP socket connection for the "
-					+ "CalAmp GPS tracker feed.");
+					+ "GPS tracker feed.");
 
-	private static final Logger logger = 
+	protected static final Logger logger = 
 			LoggerFactory.getLogger(CalAmpAvlModule.class);
 
 	/********************** Member Functions **************************/
@@ -30,7 +30,7 @@ public class CalAmpAvlModule extends AvlModule {
 		super(agencyId);
 	}
 
-	private void processPackets(DatagramSocket socket) {
+	protected void processPackets(DatagramSocket socket) {
 		// Read from the socket
 		try {
 			// Create the DatagramPacket that data is read into
@@ -66,16 +66,16 @@ public class CalAmpAvlModule extends AvlModule {
 
 		while (true) {
 			logger.info("Starting DatagramSocket on port {}",
-					calAmpFeedPort.getValue());
+					UDPFeedPort.getValue());
 
 			try {
 				// Open up the DatagramSocket
 				DatagramSocket socket = null;
 				try {
-					socket = new DatagramSocket(calAmpFeedPort.getValue());
+					socket = new DatagramSocket(UDPFeedPort.getValue());
 				} catch (SocketException e1) {
 					logger.error("Exception occurred opening DatagramSocket "
-							+ "on port {}. {}", calAmpFeedPort.getValue(),
+							+ "on port {}. {}", UDPFeedPort.getValue(),
 							e1.getMessage(), e1);
 					System.exit(-1);
 				}
