@@ -1,6 +1,6 @@
 <%@ page import="org.transitclock.reports.ChartGenericJsonQuery" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 String agencyId = request.getParameter("a");
@@ -228,17 +228,17 @@ if (agencyId == null || agencyId.isEmpty()) {
   </style>
   
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Database Disk Space Utilization</title>
+<title><fmt:message key="div.ddsu" /></title>
 </head>
 <body>
 <%@include file="/template/header.jsp" %>
-<div id="title">Database Disk Space for Largest Tables</div>
+<div id="title"><fmt:message key="div.ddsflt" /></div>
 <div id="chart_div"></div>
 
-<div id="title">Database Disk Space by Table</div>
+<div id="title"><fmt:message key="div.ddsbt" /></div>
 <div id="table1_div"></div>
 
-<div id="title">Database Disk Space Details</div>
+<div id="title"><fmt:message key="div.ddsd" /></div>
 <div id="table2_div"></div>
 </body>
 </html>

@@ -27,7 +27,7 @@
 		<jsp:include page="params/predictionSource.jsp" />
 		
 		 <div class="param">
-		     <label for="predictionType">Prediction Type:</label> 
+		     <label for="predictionType"><fmt:message key="div.ptype" /></label> 
 		     <select id="predictionType" name="predictionType" 
 		     	title="Specifies whether or not to show prediction accuracy for 
 		     	predictions that were affected by a layover. Select 'All' to show
@@ -35,32 +35,32 @@
 		     	predictions affected by when a driver is scheduled to leave a layover, 
 		     	or 'Not affected by layover' if you only want data for predictions 
 		     	that were not affected by layovers.">
-		       <option value="">All</option>
-		       <option value="AffectedByWaitStop">Affected by layover</option>
-		       <option value="NotAffectedByWaitStop">Not affected by layover</option>
+		       <option value=""><fmt:message key="div.pall" /></option>
+		       <option value="AffectedByWaitStop"><fmt:message key="div.paff" /></option>
+		       <option value="NotAffectedByWaitStop"><fmt:message key="div.pnaff" /></option>
 		     </select>
 		  </div>
 		 	
 		  <div class="param">
-		    <label for="allowableEarly">Allowable Early:</label>
+		    <label for="allowableEarly"><fmt:message key="div.aear" /></label>
 		    <input id="allowableEarly" name="allowableEarly"
 		    	title="How early a vehicle can arrive compared to the prediction
 		    	and still be acceptable. Must be a negative number to indicate
 		    	early." 
 		    	type="number"
 		    	value="1.0"
-		    	step="0.1" /> <span class="note">minutes</span>
+		    	step="0.1" /> <span class="note"><fmt:message key="div.minutes" /></span>
 		 </div>
 		 
 		 <div class="param">
-		    <label for="allowableLate">Allowable Late:</label>
+		    <label for="allowableLate"><fmt:message key="div.alat" /></label>
 		    <input id="allowableLate" name="allowableLate"
 		    	title="How late a vehicle can arrive compared to the prediction
 		    	and still be acceptable. Must be a positive number to indicate
 		    	late." 
 		    	type="number"
 		    	value="4.0"
-		    	step="0.1" /> <span class="note">minutes</span>
+		    	step="0.1" /> <span class="note"><fmt:message key="div.ptype" /></span>
 		 </div>
 		  
 	</form>

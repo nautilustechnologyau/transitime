@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="org.transitclock.utils.web.WebUtils" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
@@ -13,7 +13,7 @@ if (agencyId == null || agencyId.isEmpty()) {
 <head>
   <%@include file="/template/includes.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Last GPS Reports for Vehicles</title>
+<title><fmt:message key="div.lastgpsreports" /></title>
 
 <style>
 
@@ -54,9 +54,9 @@ $( document ).ready(function() {
 </head>
 <body>
 <%@include file="/template/header.jsp" %>
-<div id="title">Last GPS Reports for Past 24 Hours</div>
+<div id="title"><fmt:message key="div.lgpsr" /></div>
 <table id="dataTable">
-  <tr><th>Vehicle</th><th>Last GPS</th><th>Latitude</th><th>Longitude</th></tr>
+  <tr><th><fmt:message key="div.Vehicle" /></th><th><fmt:message key="div.lgps" /></th></tr>
   </table>
 </body>
 </html>

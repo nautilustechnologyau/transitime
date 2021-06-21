@@ -1,6 +1,6 @@
 <%@ page import="org.transitclock.utils.web.WebUtils" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,9 +24,9 @@
   <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
   <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
     
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
-  <title>AVL Data Map</title>
+  <title><fmt:message key="div.avldata" /></title>
   
 
 </head>
@@ -38,8 +38,8 @@
   	<jsp:include page="params/vehicle.jsp" />
   	<jsp:include page="params/fromDateNumDaysTime.jsp" />
     <jsp:include page="params/routeSingle.jsp" /> <br>
-    <input type="button" id="submit" value="Submit">
-    <a href="#" id="exportData">Export</a>
+    <input type="button" id="submit" value='<fmt:message key="div.Submit" />'>
+    <a href="#" id="exportData"><fmt:message key="div.Export" /></a>
   </div>
   <div id="playbackContainer">
 	  <div id="playback">
