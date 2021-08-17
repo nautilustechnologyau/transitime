@@ -3,8 +3,6 @@ core [![Build Status](https://travis-ci.org/TheTransitClock/transitime.svg?branc
 
 The complete core Java software for the Transitime real-time transit information project. The goal is to use any type of real-time GPS data to generate useful public transportation information. The system is for both letting passengers know the status of their vehicles and helping agencies more effectively manage their systems. By providing a complete open-source system, agencies can have a cost effective system and have full ownership of it. 
 
-The software is currently being used in a production environment for MBTA Commuter Rail and for several smaller agencies.
-
 <b>Build</b>
 
 The software is made up of three modules which can each be built with maven. See BUILD.md
