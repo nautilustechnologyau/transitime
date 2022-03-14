@@ -105,7 +105,7 @@ public class GCRPCAVLModule extends CalAmpAvlModule {
 
 						GCRPCAVLModule.grabber.updateAssignmentInfo(new File(assignmentSheetLocation.getValue()));
 					} catch (Exception e) {
-						logger.error("Failed to read assingment spreadsheet:" + assignmentSheetLocation.getValue(), e);
+						logger.error("Failed to read assignment spreadsheet:" + assignmentSheetLocation.getValue(), e);
 					}
 				}
 			};
