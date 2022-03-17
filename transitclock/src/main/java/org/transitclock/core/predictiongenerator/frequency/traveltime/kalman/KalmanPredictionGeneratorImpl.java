@@ -18,12 +18,12 @@ import org.transitclock.core.VehicleState;
 import org.transitclock.core.dataCache.ErrorCache;
 import org.transitclock.core.dataCache.ErrorCacheFactory;
 import org.transitclock.core.dataCache.KalmanError;
-import org.transitclock.core.dataCache.KalmanErrorCacheKey;
 import org.transitclock.core.dataCache.StopPathPredictionCache;
 import org.transitclock.core.dataCache.TripDataHistoryCacheFactory;
 import org.transitclock.core.dataCache.TripDataHistoryCacheInterface;
 import org.transitclock.core.dataCache.VehicleStateManager;
 import org.transitclock.core.dataCache.frequency.FrequencyBasedHistoricalAverageCache;
+import org.transitclock.core.dataCache.keys.bytrip.KalmanErrorCacheKey;
 import org.transitclock.core.predictiongenerator.PredictionComponentElementsGenerator;
 import org.transitclock.core.predictiongenerator.frequency.traveltime.average.HistoricalAveragePredictionGeneratorImpl;
 import org.transitclock.core.predictiongenerator.kalman.KalmanPrediction;
@@ -117,7 +117,7 @@ public class KalmanPredictionGeneratorImpl extends HistoricalAveragePredictionGe
 
 				Date nearestDay = DateUtils.truncate(avlReport.getDate(), Calendar.DAY_OF_MONTH);
 				
-				List<TravelTimeDetails> lastDaysTimes = lastDaysTimes(tripCache, currentVehicleState.getTrip().getId(),currentVehicleState.getTrip().getDirectionId(),
+				List<TravelTimeDetails> lastDaysTimes = lastDaysTimes(tripCache, indices, currentVehicleState.getTrip().getId(),currentVehicleState.getTrip().getDirectionId(),
 						indices.getStopPathIndex(), nearestDay, time,
 						maxKalmanDaysToSearch.getValue(), maxKalmanDays.getValue());
 

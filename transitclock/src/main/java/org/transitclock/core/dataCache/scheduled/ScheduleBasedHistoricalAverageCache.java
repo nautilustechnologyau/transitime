@@ -22,13 +22,13 @@ import org.transitclock.core.DwellTimeDetails;
 import org.transitclock.core.TravelTimeDetails;
 import org.transitclock.core.dataCache.ArrivalDepartureComparator;
 import org.transitclock.core.dataCache.HistoricalAverage;
-import org.transitclock.core.dataCache.KalmanErrorCacheKey;
-import org.transitclock.core.dataCache.StopPathCacheKey;
 import org.transitclock.core.dataCache.TripDataHistoryCacheFactory;
-import org.transitclock.core.dataCache.TripKey;
 import org.transitclock.core.dataCache.ehcache.CacheManagerFactory;
 import org.transitclock.core.dataCache.ehcache.scheduled.TripDataHistoryCache;
 import org.transitclock.core.dataCache.frequency.FrequencyBasedHistoricalAverageCache;
+import org.transitclock.core.dataCache.keys.bytrip.KalmanErrorCacheKey;
+import org.transitclock.core.dataCache.keys.bytrip.StopPathCacheKey;
+import org.transitclock.core.dataCache.keys.byroute.TripKey;
 import org.transitclock.db.structs.ArrivalDeparture;
 import org.transitclock.db.structs.Trip;
 import org.transitclock.gtfs.DbConfig;
@@ -129,10 +129,9 @@ public class ScheduleBasedHistoricalAverageCache {
 	}
 	private TravelTimeDetails getLastTravelTimeDetails(IpcArrivalDeparture arrivalDeparture, Trip trip)
 	{
-		Date nearestDay = DateUtils.truncate(new Date(arrivalDeparture.getTime().getTime()), Calendar.DAY_OF_MONTH);
-		TripKey tripKey = new TripKey(arrivalDeparture.getTripId(),
-				nearestDay,
-				trip.getStartTime());
+		Date nearestDay = DateUtils.truncate(new Date(arrivalDeparture.getTime().getTime()), Calendar.DAY_OF_MONTH);				
+		
+		TripKey tripKey = new TripKey(trip.getRouteId(), trip.getDirectionId(), trip.getStartTime(), nearestDay);
 						
 		List<IpcArrivalDeparture> arrivalDepartures=(List<IpcArrivalDeparture>) TripDataHistoryCacheFactory.getInstance().getTripHistory(tripKey);
 		
@@ -152,10 +151,9 @@ public class ScheduleBasedHistoricalAverageCache {
 	private DwellTimeDetails getLastDwellTimeDetails(IpcArrivalDeparture arrivalDeparture, Trip trip)
 	{
 		Date nearestDay = DateUtils.truncate(new Date(arrivalDeparture.getTime().getTime()), Calendar.DAY_OF_MONTH);
-		TripKey tripKey = new TripKey(arrivalDeparture.getTripId(),
-				nearestDay,
-				trip.getStartTime());
 						
+		TripKey tripKey = new TripKey(trip.getRouteId(), trip.getDirectionId(), trip.getStartTime(), nearestDay);
+		
 		List<IpcArrivalDeparture> arrivalDepartures=(List<IpcArrivalDeparture>) TripDataHistoryCacheFactory.getInstance().getTripHistory(tripKey);
 		
 		if(arrivalDepartures!=null && arrivalDepartures.size()>0 && arrivalDeparture.isDeparture())

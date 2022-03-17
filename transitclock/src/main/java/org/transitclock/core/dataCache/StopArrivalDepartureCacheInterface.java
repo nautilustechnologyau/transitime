@@ -7,6 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.transitclock.core.dataCache.keys.StopArrivalDepartureCacheKey;
 import org.transitclock.db.structs.ArrivalDeparture;
 import org.transitclock.ipc.data.IpcArrivalDeparture;
 

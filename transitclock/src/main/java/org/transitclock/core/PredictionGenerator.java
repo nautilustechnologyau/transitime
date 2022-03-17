@@ -24,36 +24,24 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.lang3.time.DateUtils;
 
 import org.transitclock.applications.Core;
 import org.transitclock.config.BooleanConfigValue;
 import org.transitclock.config.IntegerConfigValue;
-import org.transitclock.core.dataCache.PredictionComparator;
-import org.transitclock.core.dataCache.PredictionDataCache;
 import org.transitclock.core.dataCache.StopArrivalDepartureCacheFactory;
-import org.transitclock.core.dataCache.StopArrivalDepartureCacheKey;
 import org.transitclock.core.dataCache.TripDataHistoryCacheFactory;
 import org.transitclock.core.dataCache.TripDataHistoryCacheInterface;
-import org.transitclock.core.dataCache.TripKey;
-import org.transitclock.core.dataCache.ehcache.StopArrivalDepartureCache;
-import org.transitclock.core.dataCache.ehcache.scheduled.TripDataHistoryCache;
-import org.transitclock.core.predictiongenerator.datafilter.DwellTimeDataFilter;
-import org.transitclock.core.predictiongenerator.datafilter.DwellTimeFilterFactory;
+import org.transitclock.core.dataCache.keys.StopArrivalDepartureCacheKey;
+import org.transitclock.core.dataCache.keys.byroute.TripKey;
 import org.transitclock.core.predictiongenerator.datafilter.TravelTimeDataFilter;
 import org.transitclock.core.predictiongenerator.datafilter.TravelTimeFilterFactory;
 import org.transitclock.db.structs.ArrivalDeparture;
-import org.transitclock.db.structs.AvlReport;
 import org.transitclock.db.structs.Block;
 import org.transitclock.db.structs.PredictionEvent;
-import org.transitclock.db.structs.Trip;
 import org.transitclock.gtfs.DbConfig;
 import org.transitclock.ipc.data.IpcArrivalDeparture;
 import org.transitclock.ipc.data.IpcPrediction;
-import org.transitclock.ipc.data.IpcPredictionsForRouteStopDest;
-import org.transitclock.utils.Time;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -262,7 +250,7 @@ public abstract class PredictionGenerator {
 	}
 
 
-	protected List<TravelTimeDetails> lastDaysTimes(TripDataHistoryCacheInterface cache, String tripId,String direction, int stopPathIndex, Date startDate,
+	protected List<TravelTimeDetails> lastDaysTimes(TripDataHistoryCacheInterface cache, Indices indicies, String tripId,String direction, int stopPathIndex, Date startDate,
 
 			Integer startTime, int num_days_look_back, int num_days) {
 
@@ -277,13 +265,16 @@ public abstract class PredictionGenerator {
 		for (int i = 0; i < num_days_look_back && num_found < num_days; i++) {
 
 			Date nearestDay = DateUtils.truncate(DateUtils.addDays(startDate, (i + 1) * -1), Calendar.DAY_OF_MONTH);
-
-			TripKey tripKey = new TripKey(tripId, nearestDay, startTime);
-
+		
+			TripKey tripKey = new TripKey(indicies.getRoute().getId(), indicies.getTrip().getDirectionId(), startTime, nearestDay);
+			
+			logger.debug("Looking for cache entry in TripDataHistoryCache for {}.", tripKey);
+			
 			results = cache.getTripHistory(tripKey);
 
 			if (results != null) {
 
+				logger.debug("Have cache entry in TripDataHistoryCache for {}.", tripKey);
 				IpcArrivalDeparture arrival = getArrival(stopPathIndex, results);
 
 				if(arrival!=null)
@@ -305,7 +296,11 @@ public abstract class PredictionGenerator {
 						}
 					}
 				}
+			}else
+			{
+				logger.debug("No cache entry in TripDataHistoryCache for {}.", tripKey);
 			}
+			
 		}
 		return times;
 	}

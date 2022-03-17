@@ -1,4 +1,4 @@
-package org.transitclock.core.dataCache;
+package org.transitclock.core.dataCache.keys.bytrip;
 
 import java.util.Date;
 /**

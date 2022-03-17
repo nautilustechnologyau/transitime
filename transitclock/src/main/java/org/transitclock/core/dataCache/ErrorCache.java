@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.transitclock.core.Indices;
+import org.transitclock.core.dataCache.keys.bytrip.KalmanErrorCacheKey;
 
 public interface ErrorCache {
 	

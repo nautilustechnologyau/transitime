@@ -2,7 +2,7 @@ package org.transitclock.ipc.data;
 
 import java.io.Serializable;
 
-import org.transitclock.core.dataCache.StopPathCacheKey;
+import org.transitclock.core.dataCache.keys.bytrip.StopPathCacheKey;
 
 public class IpcHistoricalAverageCacheKey implements Serializable	
 {

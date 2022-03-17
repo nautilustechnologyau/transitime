@@ -32,9 +32,9 @@ import org.transitclock.core.dataCache.IpcArrivalDepartureComparator;
 import org.transitclock.core.dataCache.TripDataHistoryCacheFactory;
 import org.transitclock.core.dataCache.TripDataHistoryCacheInterface;
 import org.transitclock.core.dataCache.TripEvents;
-import org.transitclock.core.dataCache.TripKey;
 import org.transitclock.core.dataCache.ehcache.CacheManagerFactory;
 import org.transitclock.core.dataCache.frequency.FrequencyBasedHistoricalAverageCache;
+import org.transitclock.core.dataCache.keys.byroute.TripKey;
 import org.transitclock.db.structs.ArrivalDeparture;
 import org.transitclock.db.structs.Block;
 import org.transitclock.db.structs.Trip;
@@ -164,10 +164,9 @@ public class TripDataHistoryCache implements TripDataHistoryCacheInterface{
 				time=FrequencyBasedHistoricalAverageCache.round(time, FrequencyBasedHistoricalAverageCache.getCacheIncrementsForFrequencyService());
 				
 				if(trip!=null)							
-				{												
-					tripKey = new TripKey(arrivalDeparture.getTripId(),
-							nearestDay,
-							time);
+				{					
+										
+					tripKey=new TripKey(arrivalDeparture.getRouteId(), trip.getDirectionId(), time, nearestDay);
 					
 					logger.debug("Putting :{} in TripDataHistoryCache cache using key {}.", arrivalDeparture, tripKey);
 					

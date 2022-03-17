@@ -1,5 +1,6 @@
 package org.transitclock.core.dataCache;
 
+import org.transitclock.core.dataCache.keys.bytrip.StopPathCacheKey;
 import org.transitclock.db.structs.ArrivalDeparture;
 import org.transitclock.db.structs.Headway;
 

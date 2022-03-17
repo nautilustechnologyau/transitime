@@ -71,13 +71,14 @@ public interface CacheQueryInterface extends Remote {
 	
 	/**
 	 * Return the arrivals and departures for a trip on a specific day and start time
-	 * @param tripId
+	 * @param routeId
+	 * @param directionId
 	 * @param date
 	 * @param starttime
 	 * @return
 	 * @throws RemoteException
 	 */
-	public List<IpcArrivalDeparture> getTripArrivalDepartures(String tripId, LocalDate date, Integer starttime)
+	public List<IpcArrivalDeparture> getTripArrivalDepartures(String routeId,String directionId,  LocalDate date, Integer starttime)
 		throws RemoteException;
 	
 	

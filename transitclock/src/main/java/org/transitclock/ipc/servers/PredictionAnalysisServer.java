@@ -10,8 +10,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.transitclock.core.dataCache.StopPathCacheKey;
 import org.transitclock.core.dataCache.StopPathPredictionCache;
+import org.transitclock.core.dataCache.keys.bytrip.StopPathCacheKey;
 import org.transitclock.db.structs.PredictionForStopPath;
 import org.transitclock.ipc.data.IpcPredictionForStopPath;
 import org.transitclock.ipc.interfaces.PredictionAnalysisInterface;

@@ -28,6 +28,8 @@ import org.transitclock.core.Indices;
 import org.transitclock.core.VehicleState;
 import org.transitclock.core.dataCache.*;
 import org.transitclock.core.dataCache.ehcache.scheduled.TripDataHistoryCache;
+import org.transitclock.core.dataCache.keys.bytrip.StopPathCacheKey;
+import org.transitclock.core.dataCache.keys.byroute.TripKey;
 import org.transitclock.db.structs.ArrivalDeparture;
 import org.transitclock.db.structs.Trip;
 import org.transitclock.gtfs.DbConfig;
@@ -248,9 +250,8 @@ public class FrequencyBasedHistoricalAverageCache {
 	private TravelTimeResult getLastPathDuration(IpcArrivalDeparture arrivalDeparture, Trip trip)
 	{
 		Date nearestDay = DateUtils.truncate(new Date(arrivalDeparture.getTime().getTime()), Calendar.DAY_OF_MONTH);
-		TripKey tripKey = new TripKey(arrivalDeparture.getTripId(),
-				nearestDay,
-				trip.getStartTime());
+		
+		TripKey tripKey=new TripKey(arrivalDeparture.getRouteId(), trip.getDirectionId(), trip.getStartTime(), nearestDay);
 						
 		List<IpcArrivalDeparture> arrivalDepartures=(List<IpcArrivalDeparture>) TripDataHistoryCacheFactory.getInstance().getTripHistory(tripKey);
 		
@@ -271,9 +272,8 @@ public class FrequencyBasedHistoricalAverageCache {
 	private DwellTimeResult getLastStopDuration(IpcArrivalDeparture arrivalDeparture, Trip trip)
 	{
 		Date nearestDay = DateUtils.truncate(new Date(arrivalDeparture.getTime().getTime()), Calendar.DAY_OF_MONTH);
-		TripKey tripKey = new TripKey(arrivalDeparture.getTripId(), 
-				nearestDay,
-				trip.getStartTime());
+		
+		TripKey tripKey=new TripKey(arrivalDeparture.getRouteId(), trip.getDirectionId(), trip.getStartTime(), nearestDay);
 						
 		List<IpcArrivalDeparture> arrivalDepartures=(List<IpcArrivalDeparture>) TripDataHistoryCacheFactory.getInstance().getTripHistory(tripKey);
 		

@@ -241,8 +241,10 @@ public class CacheApi {
 			+ "Either tripId or date must be specified.",
 	tags= {"cache"})
 	public Response getTripArrivalDepartureCacheData(@BeanParam StandardParameters stdParameters,
-			@Parameter(description="if specified, returns the list for that tripId.",required=false) 
-			@QueryParam(value = "tripId") String tripid,
+			@Parameter(description="if specified, returns the list for that routeId.",required=false) 
+			@QueryParam(value = "routeId") String routeid,
+			@Parameter(description="if specified, returns the list for that direction.",required=false) 
+			@QueryParam(value = "routeId") String directionid,
 			@Parameter(description="if specified, returns the list for that date.",required=false)
 			@QueryParam(value = "date") DateParam date,
 			@Parameter(description="if specified, returns the list for that starttime.",required=false)
@@ -253,7 +255,7 @@ public class CacheApi {
 			LocalDate queryDate = null;
 			if (date != null)
 				queryDate = date.getDate();
-			List<IpcArrivalDeparture> result = cachequeryInterface.getTripArrivalDepartures(tripid, queryDate,
+			List<IpcArrivalDeparture> result = cachequeryInterface.getTripArrivalDepartures(routeid,directionid, queryDate,
 					starttime);
 
 			ApiArrivalDepartures apiResult = new ApiArrivalDepartures(result);

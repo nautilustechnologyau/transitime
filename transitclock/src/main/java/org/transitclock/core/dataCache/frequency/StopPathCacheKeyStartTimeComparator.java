@@ -2,7 +2,7 @@ package org.transitclock.core.dataCache.frequency;
 
 import java.util.Comparator;
 
-import org.transitclock.core.dataCache.StopPathCacheKey;
+import org.transitclock.core.dataCache.keys.bytrip.StopPathCacheKey;
 
 public class StopPathCacheKeyStartTimeComparator implements Comparator<StopPathCacheKey>{
 

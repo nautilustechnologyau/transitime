@@ -6,17 +6,12 @@ package org.transitclock.core.dataCache.ehcache.scheduled;
 import java.util.Collections;
 import java.util.Date;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import org.ehcache.Cache;
 import org.ehcache.CacheManager;
 
-import org.ehcache.Status;
-import org.ehcache.config.builders.CacheManagerBuilder;
-
-import org.ehcache.xml.XmlConfiguration;
 import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
@@ -29,8 +24,8 @@ import org.transitclock.core.dataCache.IpcArrivalDepartureComparator;
 import org.transitclock.core.dataCache.TripDataHistoryCacheFactory;
 import org.transitclock.core.dataCache.TripDataHistoryCacheInterface;
 import org.transitclock.core.dataCache.TripEvents;
-import org.transitclock.core.dataCache.TripKey;
 import org.transitclock.core.dataCache.ehcache.CacheManagerFactory;
+import org.transitclock.core.dataCache.keys.byroute.TripKey;
 import org.transitclock.db.structs.ArrivalDeparture;
 import org.transitclock.db.structs.Trip;
 import org.transitclock.gtfs.DbConfig;
@@ -46,7 +41,7 @@ import org.transitclock.utils.Time;
  *         filter. 
  *         
  */
-public class TripDataHistoryCache implements TripDataHistoryCacheInterface{
+public class TripDataHistoryCache implements TripDataHistoryCacheInterface {
 	private static TripDataHistoryCacheInterface singleton = new TripDataHistoryCache();
 	
 	private static boolean debug = false;
@@ -129,10 +124,8 @@ public class TripDataHistoryCache implements TripDataHistoryCacheInterface{
 			
 			if(trip!=null)
 			{
-				
-				tripKey = new TripKey(arrivalDeparture.getTripId(),
-						nearestDay,
-						trip.getStartTime());
+												
+				tripKey=new TripKey(arrivalDeparture.getRouteId(), trip.getDirectionId(), trip.getStartTime(), nearestDay);
 		
 				TripEvents result = (TripEvents) cache.get(tripKey);
 		
@@ -147,7 +140,8 @@ public class TripDataHistoryCache implements TripDataHistoryCacheInterface{
 					logger.error("Error adding "+arrivalDeparture.toString()+" event to TripDataHistoryCache.", e);				
 
 				}									
-							
+				logger.debug("Adding to TripDataHistoryCache {} with key {}.",arrivalDeparture, tripKey);
+				
 				cache.put(tripKey, result);
 			}
 		}				

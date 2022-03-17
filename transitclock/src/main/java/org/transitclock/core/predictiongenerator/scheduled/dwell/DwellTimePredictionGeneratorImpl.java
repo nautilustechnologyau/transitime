@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.transitclock.core.Indices;
 import org.transitclock.core.VehicleState;
 import org.transitclock.core.dataCache.DwellTimeModelCacheFactory;
-import org.transitclock.core.dataCache.StopPathCacheKey;
+import org.transitclock.core.dataCache.keys.bytrip.StopPathCacheKey;
 import org.transitclock.core.predictiongenerator.scheduled.traveltime.kalman.KalmanPredictionGeneratorImpl;
 import org.transitclock.db.structs.AvlReport;
 import org.transitclock.db.structs.Headway;

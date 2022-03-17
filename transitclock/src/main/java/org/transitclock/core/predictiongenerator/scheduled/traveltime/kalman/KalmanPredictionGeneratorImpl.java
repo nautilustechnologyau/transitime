@@ -1,6 +1,5 @@
 package org.transitclock.core.predictiongenerator.scheduled.traveltime.kalman;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -12,35 +11,28 @@ import org.transitclock.applications.Core;
 import org.transitclock.config.BooleanConfigValue;
 import org.transitclock.config.DoubleConfigValue;
 import org.transitclock.config.IntegerConfigValue;
-import org.transitclock.core.HeadwayDetails;
 import org.transitclock.core.Indices;
 import org.transitclock.core.PredictionGeneratorDefaultImpl;
 import org.transitclock.core.SpatialMatch;
-import org.transitclock.core.TemporalDifference;
 import org.transitclock.core.TravelTimeDetails;
 import org.transitclock.core.VehicleState;
 import org.transitclock.core.dataCache.ErrorCache;
 import org.transitclock.core.dataCache.ErrorCacheFactory;
 import org.transitclock.core.dataCache.KalmanError;
-import org.transitclock.core.dataCache.KalmanErrorCacheKey;
 import org.transitclock.core.dataCache.StopPathPredictionCache;
 import org.transitclock.core.dataCache.TripDataHistoryCacheFactory;
 import org.transitclock.core.dataCache.TripDataHistoryCacheInterface;
 import org.transitclock.core.dataCache.VehicleStateManager;
-import org.transitclock.core.dataCache.ehcache.scheduled.TripDataHistoryCache;
-import org.transitclock.core.dataCache.jcs.KalmanErrorCache;
+import org.transitclock.core.dataCache.keys.bytrip.KalmanErrorCacheKey;
 import org.transitclock.core.predictiongenerator.PredictionComponentElementsGenerator;
 import org.transitclock.core.predictiongenerator.kalman.KalmanPrediction;
 import org.transitclock.core.predictiongenerator.kalman.KalmanPredictionResult;
 import org.transitclock.core.predictiongenerator.kalman.TripSegment;
 import org.transitclock.core.predictiongenerator.kalman.Vehicle;
 import org.transitclock.core.predictiongenerator.kalman.VehicleStopDetail;
-import org.transitclock.core.predictiongenerator.scheduled.average.HistoricalAveragePredictionGeneratorImpl;
 import org.transitclock.db.structs.AvlReport;
 import org.transitclock.db.structs.PredictionEvent;
 import org.transitclock.db.structs.PredictionForStopPath;
-import org.transitclock.db.structs.VehicleEvent;
-import org.transitclock.ipc.data.IpcPrediction;
 
 /**
  * @author Sean Óg Crudden This is a prediction generator that uses a Kalman
@@ -124,8 +116,10 @@ public class KalmanPredictionGeneratorImpl extends PredictionGeneratorDefaultImp
 				logger.debug("Kalman has last vehicle info for : " +indices.toString()+ " : "+travelTimeDetails);
 
 				Date nearestDay = DateUtils.truncate(avlReport.getDate(), Calendar.DAY_OF_MONTH);
-
-				List<TravelTimeDetails> lastDaysTimes = lastDaysTimes(tripCache, currentVehicleState.getTrip().getId(),currentVehicleState.getTrip().getDirectionId(),
+				
+				indices.getStopPath().getStopId();
+				
+				List<TravelTimeDetails> lastDaysTimes = lastDaysTimes(tripCache, indices,currentVehicleState.getTrip().getId(),currentVehicleState.getTrip().getDirectionId(),
 						indices.getStopPathIndex(), nearestDay, currentVehicleState.getTrip().getStartTime(),
 						maxKalmanDaysToSearch.getValue(), maxKalmanDays.getValue());
 

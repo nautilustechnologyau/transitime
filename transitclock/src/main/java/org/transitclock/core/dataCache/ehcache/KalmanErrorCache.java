@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.transitclock.core.Indices;
 import org.transitclock.core.dataCache.ErrorCache;
 import org.transitclock.core.dataCache.KalmanError;
-import org.transitclock.core.dataCache.KalmanErrorCacheKey;
+import org.transitclock.core.dataCache.keys.bytrip.KalmanErrorCacheKey;
 /**
  * @author Sean Óg Crudden
  * 
@@ -102,7 +102,7 @@ public class KalmanErrorCache implements ErrorCache {
 			error.setError(value);	
 		}
 			
-								
+		logger.debug("Putting error value {} for key {}.",value, key);						
 		cache.put(key,error);
 	}
 

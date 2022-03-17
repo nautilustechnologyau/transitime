@@ -448,13 +448,19 @@
 	</logger>
 
 	<logger name="org.transitclock.core.PredictionGeneratorDefaultImpl"
-		level="info" additivity="false">
+		level="debug" additivity="false">
 		<appender-ref ref="PREDICTION" />
 	</logger>
 
 	<logger
 		name="org.transitclock.core.predictiongenerator"
-		level="info" additivity="false">
+		level="debug" additivity="false">
+		<appender-ref ref="PREDICTION" />
+	</logger>
+	
+	<logger
+		name="org.transitclock.core.PredictionGenerator"
+		level="debug" additivity="false">
 		<appender-ref ref="PREDICTION" />
 	</logger>
 	
@@ -472,30 +478,17 @@
 		<appender-ref ref="AVL" />
 	</logger>
 
-	<logger name="org.transitclock.core.dataCache.TripDataHistoryCache"
+	<logger name="org.transitclock.core.dataCache.ehcache.scheduled.TripDataHistoryCache"
 		level="debug" additivity="false">
 		<appender-ref ref="CACHE" />
 	</logger>
-	<logger name="org.transitclock.core.dataCache.KalmanErrorCache"
-		level="info" additivity="false">
-		<appender-ref ref="CACHE" />
-	</logger>
-	<logger name="org.transitclock.core.dataCache.frequency.FrequencyBasedHistoricalAverageCache"
+	<logger name="org.transitclock.core.dataCache.ehcache.KalmanErrorCache"
 		level="debug" additivity="false">
-		<appender-ref ref="CACHE" />
+		<appender-ref ref="PREDICTION" />
 	</logger>
-	<logger name="org.transitclock.core.dataCache.scheduled.ScheduledBasedHistoricalAverageCache"
-		level="debug" additivity="false">
-		<appender-ref ref="CACHE" />
-	</logger>
-	<logger name="org.transitclock.core.dataCache.StopArrivalDepartureCache"
-		level="debug" additivity="false">
-		<appender-ref ref="CACHE" />
-	</logger>
-	<logger name="org.transitclock.core.holdingmethod.HoldingTimeGeneratorDefaultImpl"
-		level="debug" additivity="false">
-		<appender-ref ref="HOLDING" />
-	</logger>
+	
+	
+
  	<logger name="org.transitclock.core.TemporalMatcher" level="info" additivity="true">
 		<appender-ref ref="MATCHER" /> </logger>
 	<logger name="org.transitclock.core.SpatialMatcher" level="info" additivity="true">
@@ -532,11 +525,6 @@
 		<appender-ref ref="AUTO_ASSIGNER" />
 	</logger>
 
-	<logger name="org.transitclock.core.dataCache.TripDataHistoryCache"
-		level="debug" additivity="false">
-		<appender-ref ref="STDOUT" />
-	</logger>
-
 	<logger name="org.transitclock.core.TravelTimeDetails"
 		level="warn" additivity="false">
 		<appender-ref ref="PREDICTION" />
@@ -545,15 +533,7 @@
 		level="warn" additivity="false">
 		<appender-ref ref="PREDICTION" />
 	</logger>
-	<logger name="org.transitclock.core.dataCache"
-		level="debug" additivity="false">
-		<appender-ref ref="CACHE" />
-	</logger>
 	
-	<logger name="org.transitclock.core.dataCache.jcs.DwellTimeModelCache"
-		level="debug" additivity="false">
-		<appender-ref ref="PREDICTION" />
-	</logger>
 
 	<logger name="net.sf.ehcache" level="debug" additivity="false">
 		<appender-ref ref="CACHE" />

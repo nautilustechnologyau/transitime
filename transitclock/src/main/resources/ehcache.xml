@@ -8,7 +8,7 @@
 	
 		
 	<ehcache:cache alias="dwellTimeModelCache">
-		<ehcache:key-type >org.transitclock.core.dataCache.StopPathCacheKey</ehcache:key-type>
+		<ehcache:key-type >org.transitclock.core.dataCache.keys.byroute.StopPathCacheKey</ehcache:key-type>
 		<ehcache:value-type>org.transitclock.core.predictiongenerator.scheduled.dwell.DwellModel</ehcache:value-type>
 		<ehcache:expiry>
 			<ehcache:tti unit="days">7</ehcache:tti>
@@ -22,7 +22,7 @@
 	</ehcache:cache>
 
 	<ehcache:cache alias="arrivalDeparturesByTrip">
-		<ehcache:key-type >org.transitclock.core.dataCache.TripKey</ehcache:key-type>
+		<ehcache:key-type >org.transitclock.core.dataCache.keys.byroute.TripKey</ehcache:key-type>
 		<ehcache:value-type serializer="org.transitclock.core.dataCache.ehcache.serializers.TripEventsKyroSerializer">org.transitclock.core.dataCache.TripEvents</ehcache:value-type>		
 		<ehcache:expiry>
 			<ehcache:tti unit="days">7</ehcache:tti>
@@ -36,7 +36,7 @@
 	</ehcache:cache>
 
 	<ehcache:cache alias="arrivalDeparturesByStop">
-		<ehcache:key-type>org.transitclock.core.dataCache.StopArrivalDepartureCacheKey</ehcache:key-type>
+		<ehcache:key-type>org.transitclock.core.dataCache.keys.StopArrivalDepartureCacheKey</ehcache:key-type>
 		<ehcache:value-type serializer="org.transitclock.core.dataCache.ehcache.serializers.StopEventsKyroSerializer">org.transitclock.core.dataCache.StopEvents</ehcache:value-type>
 		<ehcache:expiry>
 			<ehcache:ttl unit="days">1</ehcache:ttl>
@@ -50,7 +50,7 @@
 	</ehcache:cache>
 
 	<ehcache:cache alias="KalmanErrorCache">
-		<ehcache:key-type>org.transitclock.core.dataCache.KalmanErrorCacheKey</ehcache:key-type>
+		<ehcache:key-type>org.transitclock.core.dataCache.keys.bytrip.KalmanErrorCacheKey</ehcache:key-type>
 		<ehcache:value-type>org.transitclock.core.dataCache.KalmanError</ehcache:value-type>
 		<ehcache:expiry>
 			<ehcache:tti unit="days">21</ehcache:tti>
@@ -62,7 +62,7 @@
 	</ehcache:cache>
 
 	<ehcache:cache alias="HistoricalAverageCache">
-		<ehcache:key-type>org.transitclock.core.dataCache.StopPathCacheKey</ehcache:key-type>
+		<ehcache:key-type>org.transitclock.core.dataCache.keys.bytrip.StopPathCacheKey</ehcache:key-type>
 		<ehcache:value-type>org.transitclock.core.dataCache.HistoricalAverage</ehcache:value-type>
 		<ehcache:expiry>
 			<ehcache:tti unit="days">14</ehcache:tti>
