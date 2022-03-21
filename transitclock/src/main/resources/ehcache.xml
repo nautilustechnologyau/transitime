@@ -8,7 +8,7 @@
 	
 		
 	<ehcache:cache alias="dwellTimeModelCache">
-		<ehcache:key-type >org.transitclock.core.dataCache.keys.byroute.StopPathCacheKey</ehcache:key-type>
+		<ehcache:key-type >org.transitclock.core.dataCache.keys.bytrip.StopPathCacheKey</ehcache:key-type>
 		<ehcache:value-type>org.transitclock.core.predictiongenerator.scheduled.dwell.DwellModel</ehcache:value-type>
 		<ehcache:expiry>
 			<ehcache:tti unit="days">7</ehcache:tti>
