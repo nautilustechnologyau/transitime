@@ -107,10 +107,10 @@
 			<version>5.1.35</version>
 		</dependency>
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.3-1103-jdbc41</version>
-		</dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>42.6.0</version>
+         </dependency>
 
 		<!-- hibernate -->
 	
