@@ -1,3 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="language" value="" scope="session" />
+<fmt:setLocale value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" />
+<fmt:requestEncoding value = "UTF-8" />
+<fmt:setBundle basename="org.transitclock.i18n.text" />
 <% 
 // For creating a boolean parameter via jsp include directive.
 
@@ -15,7 +21,7 @@ if (tooltipStr == null)
   <div class="param">
      <label for="<%= name %>"><%= label %>:</label> 
      <select id="<%= name %>" name="<%= name %>" title="<%= tooltipStr %>">
-       <option value="true"  <%=  defaultValue ? "selected=\"selected\"" : ""%>>True</option>
-       <option value="false" <%= !defaultValue ? "selected=\"selected\"" : ""%>>False</option>
+       <option value="true"  <%=  defaultValue ? "selected=\"selected\"" : ""%>><fmt:message key="div.true" /></option>
+       <option value="false" <%= !defaultValue ? "selected=\"selected\"" : ""%>><fmt:message key="div.false" /></option>
      </select>
    </div>

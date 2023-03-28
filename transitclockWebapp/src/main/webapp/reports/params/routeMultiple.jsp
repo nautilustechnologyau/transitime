@@ -1,3 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="language" value="" scope="session" />
+<fmt:setLocale value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" />
+<fmt:requestEncoding value = "UTF-8" />
+<fmt:setBundle basename="org.transitclock.i18n.text" />
 <%-- For creating a route selector parameter via a jsp include.
      User can select all routes (r param then set to " ") or any
      number of routes. 
@@ -51,7 +57,7 @@ $.getJSON(apiUrlPrefix + "/command/routes",
 </script>
 
     <div id="routesDiv"  class="param">
-      <label for="route">Routes:</label>
+      <label for="route"><fmt:message key="div.rou" /></label>
       <select id="route" name="r" style="width: 380px" multiple="multiple"
       	title="Select which routes you want data for. You can use the Ctrl key along
       		   with the mouse to select multiple routes. Note: selecting all routes

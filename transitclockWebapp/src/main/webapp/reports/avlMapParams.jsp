@@ -18,7 +18,7 @@
 <%@include file="/template/header.jsp" %>
 
 <div id="title">
-   Select Parameters for Displaying AVL Data in Map
+<fmt:message key="div.SelectParametersForDisplayingAVLDataInMap" />
 </div>
    
 <div id="mainDiv">

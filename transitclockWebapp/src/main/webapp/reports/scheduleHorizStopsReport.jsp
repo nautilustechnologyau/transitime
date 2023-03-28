@@ -1,6 +1,6 @@
 <%-- Displays the schedule for a route--%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="org.transitclock.utils.web.WebUtils" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
@@ -39,7 +39,7 @@ if (agencyId == null || agencyId.isEmpty()) {
   <script type="text/javascript">
       function dataReadCallback(jsonData) {
 	      // Set the title now that have the route name from the API
-	      $('#title').html('Schedule for ' + jsonData.routeName);
+          $('#title').html('<fmt:message key="div.scfor" /> ' + jsonData.routeName);
 	      
 	      // Go through all service classes and directions for route
     	  for (var i=0; i<jsonData.schedule.length; ++i) {
@@ -47,7 +47,7 @@ if (agencyId == null || agencyId.isEmpty()) {
     		  
     		  // Create title for schedule
     		  $('body').append("<div id='scheduleTitle'>" 
-    				  + "Direction: " + schedule.directionId 
+                      + '<fmt:message key="div.ddirection" /> ' + schedule.directionId 
     				  + ", Service: " + schedule.serviceName
     				  + "</div>");
 
@@ -107,7 +107,7 @@ if (agencyId == null || agencyId.isEmpty()) {
   </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Schedule Report</title>
+<title><fmt:message key="div.scgedulareport" /></title>
 </head>
 <body>
 <%@include file="/template/header.jsp" %>

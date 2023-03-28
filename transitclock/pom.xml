@@ -23,9 +23,6 @@
 
 	</properties>
 	<repositories>
-
-		
-		
 	</repositories>
 
 	<pluginRepositories>
@@ -95,7 +92,7 @@
 			<artifactId>esri-geometry-api</artifactId>
 			<version>1.1</version>
 		</dependency>
-		
+
 
 		<!-- Database related, including c3p0 production quality connector. Note: 
 			have found that can have problems if don't use similar versions. Can have 

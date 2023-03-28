@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="org.transitclock.reports.ScheduleAdherenceController" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
@@ -204,16 +204,16 @@ function baseHandleAjaxData(routes, removeAll) {
  					 // using css float: right to get spans displayed on the right.
  				     "<span class='blocksummary' style='display:none'>" +
                      "  <span class='routeValue' id='routeEarlyVehicles' title='Number of vehicles that are more than <%= ScheduleAdherenceController.getScheduleEarlySeconds()/-60 %> minute(s) early'></span>" +
- 				     "  <span class='routeLabel' id='routeEarlyVehiclesLabel' title='Number of vehicles that are more than <%= ScheduleAdherenceController.getScheduleEarlySeconds()/-60 %> minute(s) early'>Early:</span>" +
+ 				     "  <span class='routeLabel' id='routeEarlyVehiclesLabel' title='Number of vehicles that are more than <%= ScheduleAdherenceController.getScheduleEarlySeconds()/-60 %> minute(s) early'>"+'<fmt:message key="div.cearly" />' +":</span>" +
  				     "  <span class='routeValue' id='routeOnTimeVehicles' title='Number of vehicles that are on time'></span>" + 
- 				     "  <span class='routeLabel' id='routeOnTimeVehiclesLabel' title='Number of vehicles that are on time'>On Time:</span>" +
+ 				     "  <span class='routeLabel' id='routeOnTimeVehiclesLabel' title='Number of vehicles that are on time'>"+'<fmt:message key="div.contime" />' +":</span>" +
  				     "  <span class='routeValue' id='routeLateVehicles' title='Number of vehicles more that <%= ScheduleAdherenceController.getScheduleLateSeconds()/60 %> minutes late'></span>" + 
- 				     "  <span class='routeLabel' id='routeLateVehiclesLabel' title='Number of vehicles more that <%= ScheduleAdherenceController.getScheduleLateSeconds()/60 %> minutes late'>Late:</span>" +
+ 				     "  <span class='routeLabel' id='routeLateVehiclesLabel' title='Number of vehicles more that <%= ScheduleAdherenceController.getScheduleLateSeconds()/60 %> minutes late'>"+'<fmt:message key="div.clate" />' +":</span>" +
  				     "  <span class='routeValue' id='routeVehicles' title='Number of vehicles assigned to blocks and predictable for the route'></span>" + 
- 				     "  <span class='routeLabel' id='routeVehiclesLabel' title='Number of vehicles assigned to blocks and predictable for the route'>Assigned:</span>" +
+ 				     "  <span class='routeLabel' id='routeVehiclesLabel' title='Number of vehicles assigned to blocks and predictable for the route'>"+'<fmt:message key="div.assigned" />' +"</span>" +
                      "</span>" +
  				     "  <span class='routeValue' id='routeBlocks' title='Number of blocks currently active for the route'></span>" + 
- 				     "  <span class='routeLabel' id='routeBlocksLabel' title='Number of blocks currently active for the route'>Blocks:</span>" +
+ 				     "  <span class='routeLabel' id='routeBlocksLabel' title='Number of blocks currently active for the route'>"+'<fmt:message key="div.dblock" />' +":</span>" +
 					 " </h3>" +
  					 " <div id='blocksDiv'><table id='blocksTable'></table></div>" +
  					 "</div>");	
@@ -288,20 +288,20 @@ function baseHandleAjaxData(routes, removeAll) {
 			if (blockElement.length == 0) {
 				blocksTable.append(
 						"<tr id='" + blockElementId + "'>" +
-						" <td class='blockLabel'>Block:</td><td id='block'></td>" +
-						" <td class='blockLabel'>Start:</td><td id='blockStart'></td>" + 
-						" <td class='blockLabel'>End:</td><td id='blockEnd'></td>" + 
-						" <td class='blockLabel'>Service:</td><td id='blockService'></td>" +
+						" <td class='blockLabel'>"+'<fmt:message key="div.dblock" />' +":</td><td id='block'></td>" +
+						" <td class='blockLabel'>"+'<fmt:message key="div.Start" />' +"</td><td id='blockStart'></td>" + 
+						" <td class='blockLabel'>"+'<fmt:message key="div.End" />' +"</td><td id='blockEnd'></td>" + 
+						" <td class='blockLabel'>"+'<fmt:message key="div.Service" />' +"</td><td id='blockService'></td>" +
 						"</tr>" +
 						"<tr id='" + blockElementId + "'>" +
-						" <td class='blockLabel'>Trip:</td><td id='trip'></td>" + 
-						" <td class='blockLabel'>Start:</td><td id='tripStart'></td>" + 
-						" <td class='blockLabel'>End:</td><td id='tripEnd'></td>" + 
-						" <td class='blockLabel'>Headsign:</td><td id='tripHeadsign'></td>" + 
+						" <td class='blockLabel'>"+'<fmt:message key="div.dtrip" />' +":</td><td id='trip'></td>" + 
+						" <td class='blockLabel'>"+'<fmt:message key="div.Start" />' +"</td><td id='tripStart'></td>" + 
+						" <td class='blockLabel'>"+'<fmt:message key="div.End" />' +"</td><td id='tripEnd'></td>" + 
+						" <td class='blockLabel'>"+'<fmt:message key="div.Headsign" />' +":</td><td id='tripHeadsign'></td>" + 
 						"</tr>" +
 						"<tr id='" + blockElementId + "'>" +
-						" <td class='blockLabel'>Vehicle:</td><td id='vehiclesForBlock'></td>" +
-						" <td class='blockLabel'>Adh:</td><td id='vehicleSchedAdh'></td>" +
+						" <td class='blockLabel'>"+'<fmt:message key="div.Vehicle" />' +":</td><td id='vehiclesForBlock'></td>" +
+						" <td class='blockLabel'>"+'<fmt:message key="div.Adh" />' +"</td><td id='vehicleSchedAdh'></td>" +
 						"</tr>");
 			}
 			/* this is to escape . and :  characters */			
@@ -535,28 +535,28 @@ $(function() {
 </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Active Blocks</title>
+<title><fmt:message key="div.acbiveblock" /></title>
 </head>
 <body>
 <%@include file="/template/header.jsp" %>
 
-<div id="title">Active Blocks</div>
+<div id="title"><fmt:message key="div.acbiveblock" /></div>
 <div id="menu">
-	<button id="loadAllData">Load all data</button>
+	<button id="loadAllData"><fmt:message key="div.LoadAllData" /></button>
 </div>
 <div id="accordion"></div>
 <div id="summary">
-  <span id="totalBlocksLabel" title="Total number of blocks">Blocks:</span>
+  <span id="totalBlocksLabel" title="Total number of blocks"><fmt:message key="div.blocks" /></span>
   <span id="totalBlocksValue" title="Total number of blocks"></span>
-  <span id="percentWithVehiclesLabel" title="Percentage of blocks that have an assigned and predictable vehicle">Assigned:</span>
+  <span id="percentWithVehiclesLabel" title="Percentage of blocks that have an assigned and predictable vehicle"><fmt:message key="div.assigned" /></span>
   <span id="percentWithVehiclesValue" title="Percentage of blocks that have an assigned and predictable vehicle"></span>
-  <span id="percentLateLabel" title="Percentage of blocks where vehicle is more than <%= ScheduleAdherenceController.getScheduleLateSeconds()/60 %> minutes late">Late:</span>
+  <span id="percentLateLabel" title="Percentage of blocks where vehicle is more than <%= ScheduleAdherenceController.getScheduleLateSeconds()/60 %> minutes late"><fmt:message key="div.clate" />:</span>
   <span id="percentLateValue" title="Percentage of blocks where vehicle is more than <%= ScheduleAdherenceController.getScheduleLateSeconds()/60 %> minutes late"></span>
-  <span id="percentOnTimeLabel" title="Percentage of blocks where vehicle is on time">OnTime:</span>
+  <span id="percentOnTimeLabel" title="Percentage of blocks where vehicle is on time"><fmt:message key="div.contime" />:</span>
   <span id="percentOnTimeValue" title="Percentage of blocks where vehicle is on time"></span>
-  <span id="percentEarlyLabel" title="Percentage of blocks where vehicle is more than <%= ScheduleAdherenceController.getScheduleEarlySeconds()/-60 %> minute(s) early">Early:</span>
+  <span id="percentEarlyLabel" title="Percentage of blocks where vehicle is more than <%= ScheduleAdherenceController.getScheduleEarlySeconds()/-60 %> minute(s) early"><fmt:message key="div.cearly" />:</span>
   <span id="percentEarlyValue" title="Percentage of blocks where vehicle is more than <%= ScheduleAdherenceController.getScheduleEarlySeconds()/-60 %> minute(s) early"></span>
-  <span id="asOfLabel" title="Time that summary information was last updated">As of:</span>
+  <span id="asOfLabel" title="Time that summary information was last updated"><fmt:message key="div.AsOf" /></span>
   <span id="asOfValue" title="Time that summary information was last updated"></span>
 </div>
 </body>

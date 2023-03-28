@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <%@include file="/template/includes.jsp" %>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Specify Parameters</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><fmt:message key="div.SpecifyParameters" /></title>
 
   <link href="../params/reportParams.css" rel="stylesheet"/>
 
@@ -25,7 +25,7 @@
 <%@include file="/template/header.jsp" %>
 
 <div id="title">
-   Select Parameters for Vehicle Configurations API
+   <fmt:message key="div.spfvca" />
 </div>
    
 <div id="mainDiv">   

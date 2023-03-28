@@ -1,3 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="language" value="" scope="session" />
+<fmt:setLocale value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" />
+<fmt:requestEncoding value = "UTF-8" />
+<fmt:setBundle basename="org.transitclock.i18n.text" />
 <%-- For creating a block ID selector parameter via a jsp include.     
      Reads in IDs via API for the agency specified by the "a" param. --%>
 
@@ -45,7 +51,7 @@ $.getJSON(apiUrlPrefix + "/command/blockIds",
 </script>
 
     <div id="blocksDiv"  class="param">
-      <label for="block">Block:</label>
+      <label for="block"><fmt:message key="div.dblock" />:</label>
       <select id="block" name="b" style="width: 300px" 
       	title="Select which block you want data for."></select>
     </div>

@@ -1,3 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="language" value="" scope="session" />
+<fmt:setLocale value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" />
+<fmt:requestEncoding value = "UTF-8" />
+<fmt:setBundle basename="org.transitclock.i18n.text" />
 <%-- For creating a route selector parameter via a jsp include.
      User can select all routes (r param then set to " ") or a single 
      route (but not an arbitrary multiple of routes). 
@@ -22,7 +28,7 @@ $.getJSON(apiUrlPrefix + "/command/routes",
 	        // string because then it returns the text 'All Routes'.
 	        // So need to use a blank string that can be determined
 	        // to be empty when trimmed.
-	 		var selectorData = [{id: ' ', text: 'All Routes'}];
+	 		var selectorData = [{id: ' ', text: '<fmt:message key="div.AllRoutes" />'}];
 	 		for (var i in routes.routes) {
 	 			var route = routes.routes[i];
 	 			var name = route.shortName + " " + route.longName
@@ -51,7 +57,7 @@ $.getJSON(apiUrlPrefix + "/command/routes",
 </script>
 
     <div id="routesDiv"  class="param">
-      <label for="route">Route:</label>
+      <label for="route"><fmt:message key="div.route" /></label>
       <select id="route" name="r" style="width: 380px" 
       	title="Select which route you want data for. Note: selecting all routes
       		   indeed reads in data for all routes which means it could be 

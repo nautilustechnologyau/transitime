@@ -30,6 +30,7 @@ import org.transitclock.db.structs.AvlReport;
 import org.transitclock.db.structs.AvlReport.AssignmentType;
 import io.swagger.client.ApiClient;
 import io.swagger.client.api.DefaultApi;
+import io.swagger.client.model.Device;
 import io.swagger.client.model.Position;
 import io.swagger.client.model.User;
 
@@ -47,6 +48,7 @@ public class TraccarAVLModule extends PollUrlAvlModule {
 
 	private User user = null;
 	private DefaultApi api = null;
+	
 
 	private static StringConfigValue traccarEmail = new StringConfigValue("transitclock.avl.traccar.email", "admin",
 			"This is the username for the traccar server api.");
@@ -58,7 +60,7 @@ public class TraccarAVLModule extends PollUrlAvlModule {
 			"http://127.0.0.1:8082/api", "This is the url for the traccar server api.");
 
 	private static StringConfigValue traccarSource = new StringConfigValue("transitclock.avl.traccar.source",
-			"This is the value recorded in the source for the AVL Report." + "is used.", "Traccar");
+			"Traccar", "This is the value recorded in the source for the AVL Report.");
 
 	private static final Logger logger = LoggerFactory.getLogger(TraccarAVLModule.class);
 
@@ -71,6 +73,7 @@ public class TraccarAVLModule extends PollUrlAvlModule {
 		client.setPassword(traccarPassword.getValue());
 		api.setApiClient(client);
 		user = api.sessionPost(traccarEmail.getValue(), traccarPassword.getValue());
+		user.getId();
 		if (user != null)
 			logger.debug("Traccar login succeeded.");
 	}
@@ -79,22 +82,44 @@ public class TraccarAVLModule extends PollUrlAvlModule {
 	protected void getAndProcessData() throws Exception {
 
 		Collection<AvlReport> avlReportsReadIn = new ArrayList<AvlReport>();
+		
+		List<Device> devices = api.devicesGet(true, user.getId(), null, null);
+		
 		if (api != null && user != null) {
 			List<Position> results = api.positionsGet(null, null, null, null);
-			for (Position result : results) {
-				logger.debug(result.toString());
-
-				AvlReport avlReport = new AvlReport(result.getDeviceId().toString(),
+			for (Position result : results) {											
+				Device device=findDeviceById(devices, result.getDeviceId());
+				
+				AvlReport avlReport = null;
+				// If have device details use name.
+				if(device!=null && device.getName()!=null && !device.getName().isEmpty())
+				{
+					 avlReport = new AvlReport(device.getName(),
+							result.getDeviceTime().toDate().getTime(), result.getLatitude().doubleValue(),
+							result.getLongitude().doubleValue(), traccarSource.toString());
+				}
+				else
+				{
+					 avlReport = new AvlReport(result.getDeviceId().toString(),
 						result.getDeviceTime().toDate().getTime(), result.getLatitude().doubleValue(),
 						result.getLongitude().doubleValue(), traccarSource.toString());
-				
-				avlReportsReadIn.add(avlReport);
-			}
-			
+				}
+				if(avlReport!=null)
+					avlReportsReadIn.add(avlReport);
+			}			
 			forwardAvlReports(avlReportsReadIn);
 		}
 	}
-
+	private Device findDeviceById(List<Device> devices, Integer id)
+	{
+		for(Device device:devices)
+		{
+			if(device.getId()==id)
+				return device;
+		}
+		return null;
+	}
+	
 	@Override
 	protected Collection<AvlReport> processData(InputStream in) throws Exception {
 		// TODO Auto-generated method stub

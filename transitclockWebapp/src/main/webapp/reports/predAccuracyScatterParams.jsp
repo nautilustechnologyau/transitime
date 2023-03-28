@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <%@include file="/template/includes.jsp" %>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Specify Parameters</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><fmt:message key="div.SpecifyParameters" /></title>
 
   <!-- Load in Select2 files so can create fancy selectors -->
   <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
@@ -18,7 +18,7 @@
 <%@include file="/template/header.jsp" %>
 
    <div id="title">
-   Select Parameters for Prediction Accuracy Scatter Chart
+   <fmt:message key="div.sppas" />
    </div>
    
 <div id="mainDiv">
@@ -42,7 +42,7 @@
    <jsp:include page="params/predictionSource.jsp" />
  
    <div class="param">
-     <label for="predictionType">Prediction Type:</label> 
+     <label for="predictionType"><fmt:message key="div.ptype" /></label>
      <select id="predictionType" name="predictionType" 
      	title="Specifies whether or not to show prediction accuracy for 
      	predictions that were affected by a layover. Select 'All' to show
@@ -50,9 +50,9 @@
      	predictions affected by when a driver is scheduled to leave a layover, 
      	or 'Not affected by layover' if you only want data for predictions 
      	that were not affected by layovers.">
-       <option value="">All</option>
-       <option value="AffectedByWaitStop">Affected by layover</option>
-       <option value="NotAffectedByWaitStop">Not affected by layover</option>
+       <option value=""><fmt:message key="div.pall" /></option>
+       <option value="AffectedByWaitStop"><fmt:message key="div.paff" /></option>
+       <option value="NotAffectedByWaitStop"><fmt:message key="div.pnaff" /></option>
      </select>
    </div>
  

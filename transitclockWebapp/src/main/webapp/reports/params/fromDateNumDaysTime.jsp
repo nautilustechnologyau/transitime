@@ -1,3 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="language" value="" scope="session" />
+<fmt:setLocale value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" />
+<fmt:requestEncoding value = "UTF-8" />
+<fmt:setBundle basename="org.transitclock.i18n.text" />
 <%-- For specifying a begin date, number of days, begin time, and end time --%> 
 
 <script src="../javascript/jquery-timepicker/jquery.timepicker.min.js"></script>
@@ -47,7 +53,7 @@ String currentDateStr = org.transitclock.utils.Time.dateStr(new java.util.Date()
 %>
   
   <div class="param">
-    <label for="beginDate">Begin Date:</label>
+    <label for="beginDate"><fmt:message key="div.bd" /></label>
     <input type="text" id="beginDate" name="beginDate" 
     	title="The first day of the range you want to examine data for. 
     	<br><br> Begin date must be before the end date." 
@@ -56,7 +62,7 @@ String currentDateStr = org.transitclock.utils.Time.dateStr(new java.util.Date()
   </div>
 
   <div class="param">
-    <label for=numDays>Number of days:</label>
+    <label for=numDays><fmt:message key="div.nod" /></label>
     <select id="numDays" name="numDays" 
     	title="The number of days you want to examine data for." >
       <option value="1">1</option>
@@ -94,7 +100,7 @@ String currentDateStr = org.transitclock.utils.Time.dateStr(new java.util.Date()
   </div>
   
   <div class="param">
-    <label for="beginTime">Begin Time:</label>
+    <label for="beginTime"><fmt:message key="div.bt" /></label>
     <input id="beginTime" name="beginTime"
     	title="Optional begin time of day to limit query to. Useful if
     	    want to see result just for rush hour, for example. Leave blank 
@@ -105,7 +111,7 @@ String currentDateStr = org.transitclock.utils.Time.dateStr(new java.util.Date()
   </div>
 
   <div class="param">
-    <label for="endTime">End Time:</label>
+    <label for="endTime"><fmt:message key="div.et" /></label>
     <input id="endTime" name="endTime" 
     	title="Optional end time of day to limit query to. Useful if
     	    want to see result just for rush hour, for example. Leave blank 

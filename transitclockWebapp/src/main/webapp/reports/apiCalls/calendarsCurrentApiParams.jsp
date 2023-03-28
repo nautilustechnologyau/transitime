@@ -5,7 +5,7 @@
 <head>
 <%@include file="/template/includes.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Specify Parameters</title>
+<title><fmt:message key="div.SpecifyParameters" /></title>
 
   <link href="../params/reportParams.css" rel="stylesheet"/>
 
