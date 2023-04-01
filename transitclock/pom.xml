@@ -12,17 +12,45 @@
 
 		<!-- Needed to fix problem with one-jar not working with AWS SDK. Was getting 
 			error message "Fatal: Failed to load the internal config for AWS" -->
-
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>repo.camsys-apps.com</id>
+			<url>https://repo.camsys-apps.com/third-party/</url>
+		</repository>
 	</repositories>
 
 	<pluginRepositories>
-
+		<!--
 		<pluginRepository>
 			<id>repo.obaweb.org</id>
 			<url>http://repo.obaweb.org:8080/archiva/repository/releases</url>
 		</pluginRepository>
+		-->
+		<pluginRepository>
+			<id>repo.camsys-apps.com</id>
+			<url>https://repo.camsys-apps.com/third-party/</url>
+		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
+		<!-- java 11 support -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-core</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>TheTransitClock</groupId>
 			<artifactId>transitclockBarefootClient</artifactId>

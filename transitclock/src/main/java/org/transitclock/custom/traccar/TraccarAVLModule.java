@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,8 +105,13 @@ public class TraccarAVLModule extends PollUrlAvlModule {
 						result.getDeviceTime().toDate().getTime(), result.getLatitude().doubleValue(),
 						result.getLongitude().doubleValue(), traccarSource.toString());
 				}
-				if(avlReport!=null)
+				if(avlReport!=null) {
+					Object tripId = findAttribute(device, "TripID");
+					if (tripId != null && !tripId.toString().isEmpty()) {
+						avlReport.setAssignment(tripId.toString(), AssignmentType.TRIP_ID);
+					}
 					avlReportsReadIn.add(avlReport);
+				}
 			}			
 			forwardAvlReports(avlReportsReadIn);
 		}
@@ -117,6 +123,19 @@ public class TraccarAVLModule extends PollUrlAvlModule {
 			if(device.getId()==id)
 				return device;
 		}
+		return null;
+	}
+
+	private Object findAttribute(Device device, String attrName) {
+		if (device == null || device.getAttributes() == null) {
+			return null;
+		}
+
+		Object attrsObj = device.getAttributes();
+		if (attrsObj instanceof Map) {
+			return ((Map<?, ?>) attrsObj).get(attrName);
+		}
+
 		return null;
 	}
 	
