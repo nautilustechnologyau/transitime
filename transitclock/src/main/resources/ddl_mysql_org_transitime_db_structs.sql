@@ -24,19 +24,19 @@
 
     create table ArrivalsDepartures (
         DTYPE varchar(31) not null,
-        vehicleId varchar(60) not null,
+        vehicleId varchar(500) not null,
         tripId varchar(60) not null,
         time datetime(3) not null,
         stopId varchar(60) not null,
         isArrival bit not null,
         gtfsStopSeq integer not null,
         avlTime datetime(3),
-        blockId varchar(60),
+        blockId varchar(500),
         configRev integer,
         directionId varchar(60),
         freqStartTime datetime(3),
         routeId varchar(60),
-        routeShortName varchar(60),
+        routeShortName varchar(500),
         scheduledTime datetime(3),
         serviceId varchar(60),
         stopOrder integer,
@@ -47,7 +47,7 @@
     );
 
     create table AvlReports (
-        vehicleId varchar(60) not null,
+        vehicleId varchar(500) not null,
         time datetime(3) not null,
         assignmentId varchar(60),
         assignmentType varchar(40),
@@ -69,7 +69,7 @@
     create table Block_to_Trip_joinTable (
         Blocks_serviceId varchar(60) not null,
         Blocks_configRev integer not null,
-        Blocks_blockId varchar(60) not null,
+        Blocks_blockId varchar(500) not null,
         trips_tripId varchar(60) not null,
         trips_startTime integer not null,
         trips_configRev integer not null,
@@ -80,7 +80,7 @@
     create table Blocks (
         serviceId varchar(60) not null,
         configRev integer not null,
-        blockId varchar(60) not null,
+        blockId varchar(500) not null,
         endTime integer,
         routeIds blob,
         startTime integer,
@@ -163,13 +163,13 @@
         firstDeparture datetime(3),
         headway double precision,
         numVehicles integer,
-        otherVehicleId varchar(60),
+        otherVehicleId varchar(500),
         routeId varchar(60),
         secondDeparture datetime(3),
         stopId varchar(60),
         tripId varchar(60),
         variance double precision,
-        vehicleId varchar(60),
+        vehicleId varchar(500),
         primary key (id)
     );
 
@@ -186,15 +186,15 @@
         routeId varchar(60),
         stopId varchar(60),
         tripId varchar(60),
-        vehicleId varchar(60),
+        vehicleId varchar(500),
         primary key (id)
     );
 
     create table Matches (
-        vehicleId varchar(60) not null,
+        vehicleId varchar(500) not null,
         avlTime datetime(3) not null,
         atStop bit,
-        blockId varchar(60),
+        blockId varchar(500),
         configRev integer,
         distanceAlongSegment float,
         distanceAlongStopPath float,
@@ -211,7 +211,7 @@
         directionId varchar(60),
         headsign varchar(60),
         routeId varchar(60),
-        routeShortName varchar(60),
+        routeShortName varchar(500),
         primary key (time, stopId)
     );
 
@@ -234,10 +234,10 @@
         predictionReadTime datetime(3),
         predictionSource varchar(60),
         routeId varchar(60),
-        routeShortName varchar(60),
+        routeShortName varchar(500),
         stopId varchar(60),
         tripId varchar(60),
-        vehicleId varchar(60),
+        vehicleId varchar(500),
         primary key (id)
     );
 
@@ -254,7 +254,7 @@
         schedBasedPred bit,
         stopId varchar(60),
         tripId varchar(60),
-        vehicleId varchar(60),
+        vehicleId varchar(500),
         primary key (id)
     );
 
@@ -287,7 +287,7 @@
         stopPathIndex integer,
         travelTime bit,
         tripId varchar(60),
-        vehicleId varchar(255),
+        vehicleId varchar(500),
         primary key (id)
     );
 
@@ -372,13 +372,13 @@
     );
 
     create table TripPattern_to_Path_joinTable (
-        TripPatterns_id varchar(120) not null,
+        TripPattern_id varchar(120) not null,
         TripPatterns_configRev integer not null,
         stopPaths_tripPatternId varchar(120) not null,
         stopPaths_stopPathId varchar(120) not null,
         stopPaths_configRev integer not null,
         listIndex integer not null,
-        primary key (TripPatterns_id, TripPatterns_configRev, listIndex)
+        primary key (TripPattern_id, TripPatterns_configRev, listIndex)
     );
 
     create table TripPatterns (
@@ -391,7 +391,7 @@
         minLon double precision,
         headsign varchar(255),
         routeId varchar(60),
-        routeShortName varchar(80),
+        routeShortName varchar(500),
         shapeId varchar(60),
         primary key (id, configRev)
     );
@@ -410,14 +410,14 @@
         tripId varchar(60) not null,
         startTime integer not null,
         configRev integer not null,
-        blockId varchar(60),
+        blockId varchar(500),
         directionId varchar(60),
         endTime integer,
         exactTimesHeadway bit,
         headsign varchar(255),
         noSchedule bit,
         routeId varchar(60),
-        routeShortName varchar(60),
+        routeShortName varchar(500),
         serviceId varchar(60),
         shapeId varchar(60),
         tripShortName varchar(60),
@@ -439,18 +439,18 @@
     );
 
     create table VehicleEvents (
-        vehicleId varchar(60) not null,
+        vehicleId varchar(500) not null,
         time datetime(3) not null,
         eventType varchar(60) not null,
         avlTime datetime(3),
         becameUnpredictable bit,
-        blockId varchar(60),
+        blockId varchar(500),
         description longtext,
         lat double precision,
         lon double precision,
         predictable bit,
         routeId varchar(60),
-        routeShortName varchar(60),
+        routeShortName varchar(500),
         serviceId varchar(60),
         stopId varchar(60),
         supervisor varchar(60),
@@ -459,16 +459,16 @@
     );
 
     create table VehicleStates (
-        vehicleId varchar(60) not null,
+        vehicleId varchar(500) not null,
         avlTime datetime(3) not null,
-        blockId varchar(60),
+        blockId varchar(500),
         isDelayed bit,
         isForSchedBasedPreds bit,
         isLayover bit,
         isPredictable bit,
         isWaitStop bit,
         routeId varchar(60),
-        routeShortName varchar(80),
+        routeShortName varchar(500),
         schedAdh varchar(50),
         schedAdhMsec integer,
         schedAdhWithinBounds bit,
@@ -540,7 +540,7 @@
 
     alter table TripPattern_to_Path_joinTable 
         add constraint FK_qsr8l6u1nelb5pt8rlnei08sy 
-        foreign key (TripPatterns_id, TripPatterns_configRev) 
+        foreign key (TripPattern_id, TripPatterns_configRev)
         references TripPatterns (id, configRev);
 
     alter table Trip_scheduledTimesList 
