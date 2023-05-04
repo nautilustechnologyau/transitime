@@ -89,7 +89,7 @@ public class AvlReport implements Serializable {
 	private Date timeProcessed;
 	
 	@Embedded
-	private final Location location;
+	private Location location;
 	
 	// Speed of vehicle in m/s.
 	// Speed is an optional element since not always available
@@ -99,7 +99,7 @@ public class AvlReport implements Serializable {
 	// drivers. Externally though, such as when calling the constructor, 
 	// should use Float.NaN. It is converted to a null internally.
 	@Column
-	private final Float speed;   // optional
+	private Float speed;   // optional
 	
 	// Heading in degrees clockwise from north.
 	// Heading is an optional element since not always available
@@ -110,7 +110,7 @@ public class AvlReport implements Serializable {
 	// drivers. Externally though, such as when calling the constructor, 
 	// should use Float.NaN. It is converted to a null internally.
 	@Column
-	private final Float heading; // optional
+	private Float heading; // optional
 	
 	// Optional text for describing the source of the AVL report
 	@Column(length=SOURCE_LENGTH)
@@ -142,24 +142,24 @@ public class AvlReport implements Serializable {
 	// Initially only used for San Francisco Muni. Therefore not as
 	// worthwhile for storing in the database.
 	@Transient
-	private final String leadVehicleId;
+	private String leadVehicleId;
 	
 	// Optional
 	@Column(length=HibernateUtils.DEFAULT_ID_SIZE)
-	private final String driverId;
+	private String driverId;
 	
 	// Optional
 	@Column(length=10)
-	private final String licensePlate;
+	private String licensePlate;
 	
 	// Optional. Set to null if passenger count info is not available
 	@Column
-	private final Integer passengerCount;
+	private Integer passengerCount;
 	
 	// Optional. How full a bus is as a fraction. 0.0=empty, 1.0=at capacity.
 	// This parameter is optional. Set to null if data not available.
 	@Column(length=HibernateUtils.DEFAULT_ID_SIZE)
-	private final Float passengerFullness;
+	private Float passengerFullness;
 		
 	// Optional. For containing additional info for a particular feed.
 	// Not declared final because setField1() is used to set values.
@@ -710,7 +710,7 @@ public class AvlReport implements Serializable {
 	public String getVehicleId() {
 		return vehicleId;
 	}
-	
+
 	/**
 	 * @return The GPS time of the AVL report in msec epoch time
 	 */
@@ -751,6 +751,10 @@ public class AvlReport implements Serializable {
 	public float getSpeed() {
 		return speed==null? Float.NaN : speed;
 	}
+
+	public void setSpeed(Float speed) {
+		this.speed = speed;
+	}
 	
 	/**
 	 * Heading of vehicles in degrees. The heading can sometimes
@@ -778,7 +782,11 @@ public class AvlReport implements Serializable {
 			return heading;
 		}
 	}
-	
+
+	public void setHeading(Float heading) {
+		this.heading = heading;
+	}
+
 	/**
 	 * The source of the AVL report
 	 * 
@@ -967,11 +975,19 @@ public class AvlReport implements Serializable {
 	public String getDriverId() {
 		return driverId;
 	}
-	
+
+	public void setDriverId(String driverId) {
+		this.driverId = driverId;
+	}
+
 	public String getLicensePlate() {
 		return licensePlate;
 	}
-		
+
+	public void setLicensePlate(String licensePlate) {
+		this.licensePlate = licensePlate;
+	}
+
 	/**
 	 * Returns the passenger count, as obtained from AVL feed.
 	 * If passenger count not available returns -1.
@@ -982,6 +998,10 @@ public class AvlReport implements Serializable {
 			return passengerCount;
 		else
 			return -1;
+	}
+
+	public void setPassengerCount(Integer passengerCount) {
+		this.passengerCount = passengerCount;
 	}
 	
 	/**
@@ -1004,6 +1024,10 @@ public class AvlReport implements Serializable {
 			return passengerFullness;
 		else
 			return Float.NaN;
+	}
+
+	public void setPassengerFullness(Float passengerFullness) {
+		this.passengerFullness = passengerFullness;
 	}
 	
 	/**

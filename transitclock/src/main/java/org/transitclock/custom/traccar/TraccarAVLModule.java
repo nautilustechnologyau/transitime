@@ -1,6 +1,6 @@
-/* 
+/*
  * This file is part of thetransitclock.org
- * 
+ *
  * thetransitclock.org is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License (GPL) as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -20,7 +20,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,9 +37,9 @@ import io.swagger.client.model.User;
 /**
  * @author Sean Óg Crudden This module integrates TheTransitClock with the API of a traccar
  *         server to get vehicle locations.
- * 
+ *
  *         See http://www.traccar.org
- * 
+ *
  *         It uses classes that where generated using the swagger file provided
  *         with traccar.
  *
@@ -49,7 +48,7 @@ public class TraccarAVLModule extends PollUrlAvlModule {
 
 	private User user = null;
 	private DefaultApi api = null;
-	
+
 
 	private static StringConfigValue traccarEmail = new StringConfigValue("transitclock.avl.traccar.email", "admin",
 			"This is the username for the traccar server api.");
@@ -83,36 +82,31 @@ public class TraccarAVLModule extends PollUrlAvlModule {
 	protected void getAndProcessData() throws Exception {
 
 		Collection<AvlReport> avlReportsReadIn = new ArrayList<AvlReport>();
-		
+
 		List<Device> devices = api.devicesGet(true, user.getId(), null, null);
-		
+
 		if (api != null && user != null) {
 			List<Position> results = api.positionsGet(null, null, null, null);
-			for (Position result : results) {											
+			for (Position result : results) {
 				Device device=findDeviceById(devices, result.getDeviceId());
-				
+
 				AvlReport avlReport = null;
 				// If have device details use name.
 				if(device!=null && device.getName()!=null && !device.getName().isEmpty())
 				{
-					 avlReport = new AvlReport(device.getName(),
+					avlReport = new AvlReport(device.getName(),
 							result.getDeviceTime().toDate().getTime(), result.getLatitude().doubleValue(),
 							result.getLongitude().doubleValue(), traccarSource.toString());
 				}
 				else
 				{
-					 avlReport = new AvlReport(result.getDeviceId().toString(),
-						result.getDeviceTime().toDate().getTime(), result.getLatitude().doubleValue(),
-						result.getLongitude().doubleValue(), traccarSource.toString());
+					avlReport = new AvlReport(result.getDeviceId().toString(),
+							result.getDeviceTime().toDate().getTime(), result.getLatitude().doubleValue(),
+							result.getLongitude().doubleValue(), traccarSource.toString());
 				}
-				if(avlReport!=null) {
-					Object tripId = findAttribute(device, "TripID");
-					if (tripId != null && !tripId.toString().isEmpty()) {
-						avlReport.setAssignment(tripId.toString(), AssignmentType.TRIP_ID);
-					}
+				if(avlReport!=null)
 					avlReportsReadIn.add(avlReport);
-				}
-			}			
+			}
 			forwardAvlReports(avlReportsReadIn);
 		}
 	}
@@ -126,25 +120,12 @@ public class TraccarAVLModule extends PollUrlAvlModule {
 		return null;
 	}
 
-	private Object findAttribute(Device device, String attrName) {
-		if (device == null || device.getAttributes() == null) {
-			return null;
-		}
-
-		Object attrsObj = device.getAttributes();
-		if (attrsObj instanceof Map) {
-			return ((Map<?, ?>) attrsObj).get(attrName);
-		}
-
-		return null;
-	}
-	
 	@Override
 	protected Collection<AvlReport> processData(InputStream in) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
-	}	
-	
+	}
+
 	protected void forwardAvlReports(Collection<AvlReport> avlReportsReadIn)
 	{
 		processAvlReports(avlReportsReadIn);
