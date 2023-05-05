@@ -20,7 +20,7 @@ package org.transitclock.feed.gtfsRt;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
-
+import java.net.URLConnection;
 
 
 import org.slf4j.Logger;
@@ -245,11 +245,13 @@ public abstract class GtfsRtVehiclePositionsReaderBase {
 			
 			URI uri = new URI(urlString);
 			URL url = uri.toURL();
+			URLConnection urlConnection = url.openConnection();
+			urlConnection.setRequestProperty("accept", "application/x-google-protobuf");
 			
 			// Create a CodedInputStream instead of just a regular InputStream
 			// so that can change the size limit. Otherwise if file is greater
 			// than 64MB get an exception.
-			InputStream inputStream = url.openStream();
+			InputStream inputStream = urlConnection.getInputStream(); //url.openStream();
 			CodedInputStream codedStream = 
 					CodedInputStream.newInstance(inputStream);
 			// What to use instead of default 64MB limit

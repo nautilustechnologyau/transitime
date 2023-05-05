@@ -32,7 +32,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Sean Óg Crudden This module integrates TheTransitClock with the API of a MyMetro traccar
@@ -95,64 +94,67 @@ public class MyMetroAVLModule extends PollUrlAvlModule {
 
         if (api != null && user != null) {
             List<Position> results = api.positionsGet(null, null, null, null);
-            for (Position result : results) {
-                Device device = findDeviceById(devices, result.getDeviceId());
+            for (Position position : results) {
+                Device device = MyMetroUtils.findDeviceById(devices, position.getDeviceId());
 
                 AvlReport avlReport = null;
                 // If have device details use name.
                 if (device != null && device.getName() != null && !device.getName().isEmpty()) {
                     avlReport = new AvlReport(device.getName(),
-                            result.getDeviceTime().toDate().getTime(), result.getLatitude().doubleValue(),
-                            result.getLongitude().doubleValue(), traccarSource.toString());
+                            position.getDeviceTime().toDate().getTime(), position.getLatitude().doubleValue(),
+                            position.getLongitude().doubleValue(), traccarSource.toString());
                 } else {
-                    avlReport = new AvlReport(result.getDeviceId().toString(),
-                            result.getDeviceTime().toDate().getTime(), result.getLatitude().doubleValue(),
-                            result.getLongitude().doubleValue(), traccarSource.toString());
+                    avlReport = new AvlReport(position.getDeviceId().toString(),
+                            position.getDeviceTime().toDate().getTime(), position.getLatitude().doubleValue(),
+                            position.getLongitude().doubleValue(), traccarSource.toString());
                 }
 
                 // Assign trip/route/block id if available
-                Object tripId = findAttribute(device, TRIP_ID_FIELD);
-                Object routeId = findAttribute(device, ROUTE_ID_FIELD);
-                Object blockId = findAttribute(device, BLOCK_ID_FIELD);
+                Object tripId = MyMetroUtils.stripAgencyId(MyMetroUtils.findAttribute(position, TRIP_ID_FIELD));
+                Object routeId = MyMetroUtils.stripAgencyId(MyMetroUtils.findAttribute(position, ROUTE_ID_FIELD));
+                Object blockId = MyMetroUtils.stripAgencyId(MyMetroUtils.findAttribute(position, BLOCK_ID_FIELD));
                 if (tripId != null && !tripId.toString().isEmpty()) {
+                    logger.debug("Trip ID received: " + tripId);
                     avlReport.setAssignment(tripId.toString(), AssignmentType.TRIP_ID);
                 } else if (routeId != null && !routeId.toString().isEmpty()) {
+                    logger.debug("Route ID received: " + routeId);
                     avlReport.setAssignment(routeId.toString(), AssignmentType.ROUTE_ID);
                 } else if (blockId != null && !blockId.toString().isEmpty()) {
+                    logger.debug("Block ID received: " + blockId);
                     avlReport.setAssignment(blockId.toString(), AssignmentType.BLOCK_ID);
                 }
 
                 // Assign speed if available
-                if (result.getSpeed() != null) {
-                    avlReport.setSpeed(result.getSpeed().floatValue());
+                if (position.getSpeed() != null) {
+                    avlReport.setSpeed(position.getSpeed().floatValue());
                 }
 
                 // Assign bearing if available
-                Object heading = findAttribute(device, HEADING_FIELD);
+                Object heading = MyMetroUtils.findAttribute(position, HEADING_FIELD);
                 if (heading != null) {
                     avlReport.setHeading(Float.parseFloat(heading.toString()));
                 }
 
                 // Assign driver id if available
-                Object driverId = findAttribute(device, DRIVER_ID_FIELD);
+                Object driverId = MyMetroUtils.findAttribute(position, DRIVER_ID_FIELD);
                 if (driverId != null) {
                     avlReport.setDriverId(driverId.toString());
                 }
 
                 // Assign license plate if available
-                Object licensePlate = findAttribute(device, LICENSE_PLATE_FIELD);
+                Object licensePlate = MyMetroUtils.findAttribute(position, LICENSE_PLATE_FIELD);
                 if (licensePlate != null) {
                     avlReport.setLicensePlate(licensePlate.toString());
                 }
 
                 // Assign passenger count if available
-                Object passengerCount = findAttribute(device, PASSENGER_COUNT_FIELD);
+                Object passengerCount = MyMetroUtils.findAttribute(position, PASSENGER_COUNT_FIELD);
                 if (passengerCount != null) {
                     avlReport.setPassengerCount(Integer.parseInt(passengerCount.toString()));
                 }
 
                 // Assign fullness if available
-                Object passengerFullness = findAttribute(device, PASSENGER_FULLNESS_FIELD);
+                Object passengerFullness = MyMetroUtils.findAttribute(position, PASSENGER_FULLNESS_FIELD);
                 if (passengerFullness != null) {
                     avlReport.setPassengerCount(Integer.parseInt(passengerFullness.toString()));
                 }
@@ -162,27 +164,6 @@ public class MyMetroAVLModule extends PollUrlAvlModule {
 
             forwardAvlReports(avlReportsReadIn);
         }
-    }
-
-    private Device findDeviceById(List<Device> devices, Integer id) {
-        for (Device device : devices) {
-            if (device.getId() == id)
-                return device;
-        }
-        return null;
-    }
-
-    private Object findAttribute(Device device, String attrName) {
-        if (device == null || device.getAttributes() == null) {
-            return null;
-        }
-
-        Object attrsObj = device.getAttributes();
-        if (attrsObj instanceof Map) {
-            return ((Map<?, ?>) attrsObj).get(attrName);
-        }
-
-        return null;
     }
 
     @Override
