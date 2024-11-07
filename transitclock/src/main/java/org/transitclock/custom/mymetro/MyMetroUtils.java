@@ -31,7 +31,7 @@ public class MyMetroUtils {
 
     public static Device findDeviceById(List<Device> devices, Integer id) {
         for (Device device : devices) {
-            if (device.getId() == id)
+            if (device.getId().equals(id))
                 return device;
         }
         return null;

@@ -241,6 +241,23 @@
         primary key (id)
     );
 
+    create table PredictionEvents (
+        id int8 not null,
+        affectedByWaitStop boolean,
+        arrivalDepartureTime timestamp,
+        directionId varchar(60),
+        predictedTime timestamp,
+        predictionAccuracyMsecs int4,
+        predictionReadTime timestamp,
+        predictionSource varchar(60),
+        routeId varchar(60),
+        routeShortName varchar(500),
+        stopId varchar(60),
+        tripId varchar(60),
+        vehicleId varchar(500),
+        primary key (id)
+    );
+
     create table Predictions (
         id int8 not null,
         affectedByWaitStop boolean,
